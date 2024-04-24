@@ -19,6 +19,10 @@ def add_cors_headers(response):
     response.headers['Access-Control-Allow-Headers'] = '*'
     return response
 
+@app.route('/', methods=['GET'])
+def good():
+    return "good"
+
 @app.route('/<path:short_link>', methods=['GET'])
 def def1(short_link):
     if request.method == 'GET':

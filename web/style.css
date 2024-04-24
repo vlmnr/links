@@ -8,6 +8,7 @@ body {
     font-size: 1rem;
     line-height: 1.5;
     color: #000000;
+
 }
 
 * {
@@ -15,7 +16,7 @@ body {
 }
 
 .container {
-    max-width: 400px;
+    max-width: 450px;
     max-height: 300px;
     margin: 50px auto;
     padding: 10px;
@@ -23,11 +24,13 @@ body {
     border-radius: 20px;
 
     background-color: #6a9ed4;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8)
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+	
 }
 
 .form {
     margin: 0;
+	
 }
 
 .form-title {
@@ -39,26 +42,46 @@ body {
 
 .form-group {
     display: flex;
-    justify-content: center;
-
+	
+    justify-content: flex-start;
     margin: 0;
 }
 
 .form-input {
-    padding: 5px;
-    width: 300px;
-    height: 35px;
-
-    margin: 10px auto;
+	
+    padding: 10px;
+    width: 310px;
+    height: 30px;
+	
+    margin: 10px 5px 10px 5px;
 
     border: none;
     border-radius: 7px;
+	display: inline;
+	
+}
+
+.form-output {
+	
+    width: 200px;
+    height: 30px;
+	
+    margin: 10px 5px 10px 10px;
+
+    border: solid white;
+    border-radius: 7px;
+	text-align: center;
+
+	background-color: #90b6de;
+	
 }
 
 .btn {
-    display: block;
-    margin: 10px auto;
+    
+    margin: 10px 10px 10px 10px;
+	margin-left: auto;
     padding: 5px;
+	height: 30px;
 
     min-width: 90px;
 
@@ -71,9 +94,11 @@ body {
 
     background-color: #ffffff;
     transition: 0.2s linear;
+	
 }
 
 .btn:hover {
+	
     color: #faebd7;
 
     background-color: #316099;
@@ -83,6 +108,7 @@ body {
 }
 
 .btn:active {
+	
     color: #faebd7;
 
     background-color: #042d5f;

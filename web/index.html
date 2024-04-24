@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
         <title>Короткая ссылка</title>
-
 </head>
 <body>
+	<script src = "/script.js"></script>>
+	<script src="https://cdn.jsdelivr.net/qrcodejs/1.0.0/qrcode.min.js" id="qrcode-script"></script>
 
-    <script src = "/script.js"></script>>
     <div class="container">
         <h3 class="form-title">Сокращение ссылки</h3>
         <form class="form" method="post">
@@ -16,18 +16,19 @@
             <div class="form-group">
                 <label for="input_link"></label>
                 <input class="form-input" type="text" name="initial_link" id="initial-link" placeholder="Вставьте ссылку которую нужно сократить">
+				<button class="btn" onclick="sendInitial()" type="button" id="button1" value="short">Сократить</button>
             </div>
             
-            <button class="btn" onclick="send_initial()" type="button" id="button1" value="short">Сократить</button>
-
             <div class="form-group">
                 <label for="safe_link"></label>
-                <input class="form-input" type="text" name="short_link" id="short-link" placeholder="Сокращённая ссылка">
+                <!--input class="form-input" type="text" name="short_link" id="short-link" placeholder="Сокращённая ссылка"-->
+				<output class="form-output" name="result" id="short-link">0</output>
+				<button class="btn" onclick="СopyShortUrl(); doQR();" type="button" id="button2" data-clipboard-target="short-link" value="clear">Скопировать</button>
             </div>
+			<div id="qrcode"></div>
+			
 
-            <button class="btn" onclick="send_initial()" type="button" id="button2" value="clear">Скопировать</button>
-
-            <button class="btn" onclick="clear_fu()" type="button" id="button3" value="CL3">CL3</button>
+            <button class="btn" onclick="clearFu()" type="button" id="button3" value="CL3">CL3</button>
 
         </form>
     </div>
