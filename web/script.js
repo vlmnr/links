@@ -52,16 +52,9 @@ function СopyShortUrl(){
 
 function doQR(){
   //document.getElementById("qrcode-script").onload = function(){
-  console.log(QRCode);
-  if (typeof !QRCode) {
-      console.log('not done');
-      new QRCode(document.getElementById("qrcode"), "https://www.artofliving.ru");
-  } else {
-      // Скрипт еще не загружен, ждем его загрузки
-      document.getElementById("qrcode-script").onload = function() {
-          console.log('done');
-          new QRCode(document.getElementById("qrcode"), "https://www.artofliving.ru");
-      };
-    
-  }
+    if (typeof QRCode !== 'undefined') {
+      console.log('Yes');
+      new QRCode(document.getElementById("qrcode"), {
+        text: document.getElementById("short-link").value, width: 100, height: 100});
+    }
 }
