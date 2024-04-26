@@ -28,7 +28,8 @@ def def1(short_link):
     if request.method == 'GET':
         if len(short_link) == 6:
             initial_url = find_url(short_link, "short")
-    return redirect(initial_url)
+            print('/'+ initial_url)
+    return redirect('/'+ initial_url)
 
 @app.route("/get_short_url", methods=['POST'])
 def get_short_url():
