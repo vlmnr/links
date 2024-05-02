@@ -52,9 +52,11 @@ function СopyShortUrl(){
 
 function doQR(){
   //document.getElementById("qrcode-script").onload = function(){
+    var qrcodeElement = document.getElementById("qrcode");
+    qrcodeElement.innerHTML = '';
     if (typeof QRCode !== 'undefined') {
       console.log('Yes');
-      new QRCode(document.getElementById("qrcode"), {
+      new QRCode(qrcodeElement, {
         text: document.getElementById("short-link").value, width: 100, height: 100});
     }
 }

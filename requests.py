@@ -1,7 +1,7 @@
 import json
 from flask import Flask, request
 from flask_cors import CORS
-from flask import redirect
+from flask import redirect, url_for
 
 from base import *
 
@@ -26,10 +26,13 @@ def good():
 @app.route('/<path:short_link>', methods=['GET'])
 def def1(short_link):
     if request.method == 'GET':
-        if len(short_link) == 6:
+       if len(short_link) == 6:
             initial_url = find_url(short_link, "short")
             print('/'+ initial_url)
-    return redirect('/'+ initial_url)
+    if (initial_url.startswith('http:\\')) or (initial_url.startswith('https:\\')):
+       return redirect(initial_url)
+    else:  return redirect('//' + initial_url)
+
 
 @app.route("/get_short_url", methods=['POST'])
 def get_short_url():
