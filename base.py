@@ -60,4 +60,4 @@ def clear_base():
             cursor.execute(clearold,(str(create_time),))
             connection.commit()
     connection.close()
-    pywhatkit.sendwhatmsg('+79778518230', 'Привет мир!')
+    # pywhatkit.sendwhatmsg('', 'Привет мир!')

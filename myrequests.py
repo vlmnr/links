@@ -8,7 +8,7 @@ from base import *
 app = Flask(__name__)
 CORS(app)
 
-SiteName = 'localhost:5000/'
+HostName = 'localhost:5000/'
 
 def start():
     app.run(host='localhost', debug=True, port=5000)
