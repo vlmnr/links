@@ -1,4 +1,4 @@
-import sqlite3
+#import sqlite3
 import mysql.connector as con
 import datetime
 import random
@@ -8,7 +8,7 @@ import pywhatkit
 
 eel.init("web")
 
-BaseName = 'links.db'
+DatabaseName = "mysql_links"
 LifeTime = 100                          #  life time of notes in base (in sec)
 NumSymbols = 6                          #  Quantity of symbols in new url
 
@@ -20,11 +20,13 @@ def gen_url():
 
 #find url already exist in base and return paired url
 def find_url(wanted_url, column):
-    connection = sqlite3.connect(BaseName)
+#    connection = sqlite3.connect(DatabaseName)
+    i = int(column == 'short')            # i==1  find by short column ; i==0 find by big column
+    connection = con.connect(host="localhost", port=3306, user = "root", password = "root", database = "mysql_links")
     cursor = connection.cursor()
     base = cursor.execute('SELECT * FROM Links')
-    i = int(column == 'short')            # i==1  find by short column ; i==0 find by big column
-    for row in base.fetchall():
+    result = base.fetchall()
+    for row in result:
         if (wanted_url == row[i]):
             print(row[1-i])
             return row[1-i]
@@ -40,7 +42,8 @@ def gen_unique_url():
 
 # add urls in base
 def add_url(initial_url, short_url):
-    connection = sqlite3.connect(BaseName)
+#    connection = sqlite3.connect(DatabaseName)
+    connection = con.connect(DatabaseName)
     cursor = connection.cursor()
     tobase = 'INSERT INTO Links (initial_url, short_url, date) VALUES (?, ?, ?)'
     cursor.execute(tobase,(initial_url, short_url, str(datetime.datetime.now())))
@@ -49,7 +52,8 @@ def add_url(initial_url, short_url):
 
 # clear the base of old records
 def clear_base():
-    connection = sqlite3.connect(BaseName)
+#    connection = sqlite3.connect(DatabaseName)
+    connection = con.connect(DatabaseName)
     cursor = connection.cursor()
     base = cursor.execute('SELECT * FROM Links')
     clearold = 'DELETE from Links WHERE Date=(?)'
