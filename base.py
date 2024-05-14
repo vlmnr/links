@@ -24,8 +24,8 @@ def find_url(wanted_url, column):
     i = int(column == 'short')            # i==1  find by short column ; i==0 find by big column
     connection = con.connect(host="localhost", port=3306, user = "root", password = "root", database = "mysql_links")
     cursor = connection.cursor()
-    base = cursor.execute('SELECT * FROM Links')
-    result = base.fetchall()
+    cursor.execute('SELECT * FROM Links')
+    result = cursor.fetchall()
     for row in result:
         if (wanted_url == row[i]):
             print(row[1-i])
@@ -43,7 +43,7 @@ def gen_unique_url():
 # add urls in base
 def add_url(initial_url, short_url):
 #    connection = sqlite3.connect(DatabaseName)
-    connection = con.connect(DatabaseName)
+    connection = con.connect(host="localhost", port=3306, user = "root", password = "root", database = "mysql_links")
     cursor = connection.cursor()
     tobase = 'INSERT INTO Links (initial_url, short_url, date) VALUES (?, ?, ?)'
     cursor.execute(tobase,(initial_url, short_url, str(datetime.datetime.now())))

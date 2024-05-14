@@ -42,7 +42,7 @@ def get_short_url():
         initial_url = string_data['initial_url']    # string big_url
         new_url = gen_unique_url()          # generic new short unique url
         add_url(initial_url, new_url)           # add pair (big_url, new_short_url) to base
-    return SiteName + new_url
+    return HostName + new_url
 
 @app.route("/clear", methods=['GET'])
 def clear():
