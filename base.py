@@ -45,23 +45,39 @@ def add_url(initial_url, short_url):
 #    connection = sqlite3.connect(DatabaseName)
     connection = con.connect(host="localhost", port=3306, user = "root", password = "root", database = "mysql_links")
     cursor = connection.cursor()
-    tobase = 'INSERT INTO Links (initial_url, short_url, date) VALUES (?, ?, ?)'
+    tobase = 'INSERT INTO Links (initial_url, short_url, date) VALUES (%s, %s, %s)'
     cursor.execute(tobase,(initial_url, short_url, str(datetime.datetime.now())))
     connection.commit()
     connection.close()
 
 # clear the base of old records
 def clear_base():
-#    connection = sqlite3.connect(DatabaseName)
-    connection = con.connect(DatabaseName)
+    try:
+        connection = con.connect(host="localhost", port=3306, user="root", password="root", database="mysql_links")
+        if connection.is_connected():
+            print("Успешное подключение к базе данных")
+        cursor = connection.cursor()
+        delete_query = "DELETE FROM links WHERE expiry_at < NOW() LIMIT 1000"
+        cursor.execute(delete_query)
+        connection.commit()
+        print("Успешно удалено строки из таблицы 'links'")
+    except con.Error as error:
+        print("Ошибка при удалении строк из таблицы 'links':", error)
+    finally:
+        if 'connection' in locals():
+            connection.close()
+
+"""    
+    connection = con.connect(host="localhost", port=3306, user="root", password="root", database="mysql_links")
     cursor = connection.cursor()
-    base = cursor.execute('SELECT * FROM Links')
-    clearold = 'DELETE from Links WHERE Date=(?)'
-    for row in base.fetchall():
-        create_time = datetime.datetime.strptime(row[2],'%Y-%m-%d %H:%M:%S.%f') # get time of made note in base
-        delta = datetime.datetime.now() - create_time
+    cursor.execute('SELECT * FROM Links')
+    base = cursor.fetchall()
+    clearold = 'DELETE from Links WHERE Date=(%s)'
+    for row in base:
+        create_time = datetime.datetime.strptime(row[2],'%Y-%m-%d %H:%M:%S.%f') # get time of made note in base  читаем время третим элементом в записи
+        delta = datetime.datetime.now() - create_time # возраст записи
         if (delta.seconds > LifeTime):
             cursor.execute(clearold,(str(create_time),))
             connection.commit()
     connection.close()
-    # pywhatkit.sendwhatmsg('', 'Привет мир!')
+""" # pywhatkit.sendwhatmsg('', 'Привет мир!')
