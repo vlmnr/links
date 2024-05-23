@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask import redirect, url_for
 
 from base import *
+from clear import *
 
 app = Flask(__name__)
 CORS(app)
