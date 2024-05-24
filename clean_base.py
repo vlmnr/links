@@ -1,7 +1,7 @@
 import mysql.connector as con
 
 # clear the base of old records
-def clear_base():
+def cleanning_base():
     LifeTime = 100  # life time of notes in base (in sec)
     try:
         connection = con.connect(host="localhost", port=3306, user="root", password="root", database="mysql_links")

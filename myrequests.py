@@ -4,15 +4,16 @@ from flask_cors import CORS
 from flask import redirect, url_for
 
 from base import *
-from clear import *
+from clean_base import *
 
 app = Flask(__name__)
 CORS(app)
 
 HostName = 'localhost:5000/'
 
-def start():
+def start_web_server():
     app.run(host='localhost', debug=True, port=5000)
+    print("myrequest")
 
 @app.after_request
 def add_cors_headers(response):
@@ -20,11 +21,11 @@ def add_cors_headers(response):
     response.headers['Access-Control-Allow-Headers'] = '*'
     return response
 
-@app.route('/', methods=['GET'])
-def good():
-    return "good"
+#@app.route('/', methods=['GET'])
+#def good():
+#    return "good"
 
-@app.route('/<path:short_link>', methods=['GET'])
+@app.route('/<path:short_link>', methods=['POST'])
 def def1(short_link):
     if request.method == 'GET':
        if len(short_link) == 6:
@@ -32,7 +33,8 @@ def def1(short_link):
             print('/'+ initial_url)
     if (initial_url.startswith('http:\\')) or (initial_url.startswith('https:\\')):
        return redirect(initial_url)
-    else:  return redirect('//' + initial_url)
+    else:
+        return redirect('//' + initial_url)
 
 
 @app.route("/get_short_url", methods=['POST'])

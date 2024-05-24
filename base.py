@@ -1,11 +1,10 @@
-#import sqlite3
+
 import mysql.connector as con
 import datetime
 import random
 import string
 import eel
-from clear import *
-import pywhatkit
+from clean_base import *
 
 eel.init("web")
 
@@ -20,7 +19,6 @@ def gen_url():
 
 #find url already exist in base and return paired url
 def find_url(wanted_url, column):
-#    connection = sqlite3.connect(DatabaseName)
     i = int(column == 'short')            # i==1  find by short column ; i==0 find by big column
     connection = con.connect(host="localhost", port=3306, user = "root", password = "root", database = "mysql_links")
     cursor = connection.cursor()
@@ -42,7 +40,6 @@ def gen_unique_url():
 
 # add urls in base
 def add_url(initial_url, short_url):
-#    connection = sqlite3.connect(DatabaseName)
     connection = con.connect(host="localhost", port=3306, user = "root", password = "root", database = "mysql_links")
     cursor = connection.cursor()
     tobase = 'INSERT INTO Links (initial_url, short_url, date) VALUES (%s, %s, %s)'
@@ -50,17 +47,3 @@ def add_url(initial_url, short_url):
     connection.commit()
     connection.close()
 
-"""    
-    connection = con.connect(host="localhost", port=3306, user="root", password="root", database="mysql_links")
-    cursor = connection.cursor()
-    cursor.execute('SELECT * FROM Links')
-    base = cursor.fetchall()
-    clearold = 'DELETE from Links WHERE Date=(%s)'
-    for row in base:
-        create_time = datetime.datetime.strptime(row[2],'%Y-%m-%d %H:%M:%S.%f') # get time of made note in base  читаем время третим элементом в записи
-        delta = datetime.datetime.now() - create_time # возраст записи
-        if (delta.seconds > LifeTime):
-            cursor.execute(clearold,(str(create_time),))
-            connection.commit()
-    connection.close()
-""" # pywhatkit.sendwhatmsg('', 'Привет мир!')
