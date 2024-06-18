@@ -9,7 +9,7 @@ from clean_base import *
 app = Flask(__name__)
 CORS(app)
 
-HostName = 'localhost:5000/'
+HOST_NAME = 'localhost:5000/'
 
 def start_web_server():
     app.run(host='localhost', debug=True, port=5000)
@@ -25,7 +25,7 @@ def add_cors_headers(response):
 def good():
     return "good"
 
-@app.route('/<path:short_link>', methods=['POST'])
+@app.route('/<path:short_link>', methods=['GET'])
 def def1(short_link):
     if request.method == 'GET':
        if len(short_link) == 6:
@@ -45,10 +45,5 @@ def get_short_url():
         initial_url = string_data['initial_url']    # string big_url
         new_url = gen_unique_url()          # generic new short unique url
         add_url(initial_url, new_url)           # add pair (big_url, new_short_url) to base
-    return HostName + new_url
+    return HOST_NAME + new_url
 
-@app.route("/clear", methods=['GET'])
-def clear():
-    print('clear_start')
-    clear_base()
-    return ''

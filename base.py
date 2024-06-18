@@ -8,19 +8,19 @@ from clean_base import *
 
 eel.init("web")
 
-DatabaseName = "mysql_links"
-NumSymbols = 6                          #  Quantity of symbols in new url
+DATABASE_NAME = "mysql_links"
+NUM_SYMBOLS = 6                          #  Quantity of symbols in new url
 
 # generate short url
 def gen_url():
     letters = string.ascii_lowercase
-    new_url = ''.join(random.choice(letters) for i in range(NumSymbols))
+    new_url = ''.join(random.choice(letters) for i in range(NUM_SYMBOLS))
     return new_url
 
 #find url already exist in base and return paired url
 def find_url(wanted_url, column):
     i = int(column == 'short')            # i==1  find by short column ; i==0 find by big column
-    connection = con.connect(host="localhost", port=3306, user = "root", password = "root", database = "mysql_links")
+    connection = con.connect(host="localhost", port=3306, user = "root", password = "root", database = DATABASE_NAME)
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM Links')
     result = cursor.fetchall()

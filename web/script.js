@@ -1,4 +1,3 @@
-//var clipboard = new ClipboardJS('#copyButton');
 
 function getInitial() {
   const initialUrl = document.getElementById("initial-link").value;
@@ -24,17 +23,9 @@ function sendInitial(){
     .then((response) => response.text())
     .then((text) => { 
       putShort(text)
+      doQR(text)
     })
     .catch(err => console.log(err));
-}
-
-  //-------------------GET_Clear-----------------
-function clearFu(){
-  console.log('clear')
-    fetch('http://localhost:5000/clear', {mode: 'cors'})
-    .then((response) => response.text())
-    .then((text)=> {
-    })
 }
   
 function СopyShortUrl(){
@@ -50,13 +41,14 @@ function СopyShortUrl(){
   window.getSelection().removeAllRanges();
 }
 
-function doQR(){
-  //document.getElementById("qrcode-script").onload = function(){
+function doQR(short_l){
+    console.log("Start")
     var qrcodeElement = document.getElementById("qrcode");
     qrcodeElement.innerHTML = '';
     if (typeof QRCode !== 'undefined') {
-      console.log('Yes');
       new QRCode(qrcodeElement, {
-        text: document.getElementById("short-link").value, width: 100, height: 100});
+        text: short_l, width: 100, height: 100});
     }
 }
+
+// document.getElementById("short-link").value
